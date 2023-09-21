@@ -1,9 +1,15 @@
 #include <stdio.h>
-#include <stdlib.h>
+
 
 int main()
 {
-    printf("Hello world!\n");
-    printf("Get ready for what is coming\n");
+    float PRO;
+
+    printf("inrese el promedio del alumno: ");
+    scanf("%f", &PRO);
+
+    if (PRO >= 6)
+    printf("\nAprobado");
+
     return 0;
 }

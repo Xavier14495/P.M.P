@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1695306607 source:c:\users\jvkfj\documents\program-1\prueba.c
+	<stdio.h>
+
+1695306325 source:c:\users\jvkfj\documents\program-1\main.c
+	<stdio.h>
+
+1695307332 source:c:\users\jvkfj\documents\program-1\prueba_2.c
+	<stdio.h>
+
