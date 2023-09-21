@@ -11,5 +11,6 @@ int main ()
     if (PRO >= 6)
         printf("\nAprobado");
 
+
     return 0;
 }
