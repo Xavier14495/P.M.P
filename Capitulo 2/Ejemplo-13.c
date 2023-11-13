@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include<stdio.h>
 #include<math.h>
 
@@ -33,3 +34,40 @@ int main()
 
     return 0;
 }
+=======
+#include<stdio.h>
+#include<math.h>
+
+int main()
+{
+    float X;
+    int Y;
+    
+    printf("Ingrese el valor de Y: ");
+    scanf("%d", &Y);
+    
+    if (Y < 0 || Y > 50)
+    
+    X = 0;
+    
+    else
+    
+    if (Y <= 10)
+    
+    X = 4 / Y - Y;
+    
+    else
+    
+    if (Y <= 25)
+    
+    X = pow(Y, 3) - 12;
+    
+    else
+    
+    X = pow(Y, 2) + pow(Y, 3) - 18;
+    
+    printf("\n\nY = %d\tX = %8.2f", Y, X);
+
+    return 0;
+}
+>>>>>>> ffe060a60c1e42f9d38897794281b50bb8b0788c
