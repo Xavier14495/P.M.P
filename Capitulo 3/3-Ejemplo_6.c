@@ -5,7 +5,7 @@ int main()
     int I = 0;
     float SAL, PRO, NOM = 0;
     
-    printf("Ingrese el salario del profesor:\t");
+    printf("Ingrese el salario del profesor:\t"); //
     scanf("%f", &SAL);
     
     do
