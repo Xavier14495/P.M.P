@@ -31,8 +31,6 @@ int main()
 
     srand((unsigned int)time(NULL));
 
-    // Resto del código...
-
     do
     {
         // Menú de opciones
