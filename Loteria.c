@@ -11,9 +11,7 @@ struct Registro
 
 void historial(struct Registro *registros, int numTiradas);
 void tirar(struct Registro **registros, int *numTiradas);
-void liberarRegistros(struct Registro *registros);
-void imprimirResultado(const char *mensaje);
-void imprimirTiempo();
+void clear(struct Registro **registros);
 
 int main()
 {
@@ -25,109 +23,98 @@ int main()
 
     do
     {
+        // Menú de opciones
         printf("\n0. Salir \n");
         printf("1. Realizar tirada \n");
         printf("2. Historial\n");
-        printf("3. Jugar\n");
+
         printf("\nElige una opcion: ");
         scanf("%d", &opcion);
 
         switch (opcion)
         {
         case 0:
-            printf("\nHas elegido salir. Adiós!\n");
+            // Salir del programa
+            printf("\nHas elegido salir. Adios.\n");
             break;
         case 1:
-            printf("\nTirada\n");
+            // Realizar tirada
+            printf("\nTirada realizada y almacenada.\n");
             tirar(&registros, &numTiradas);
             break;
         case 2:
+            // Ver historial de tiradas
             printf("\nHistorial\n\n");
             historial(registros, numTiradas);
             break;
-        case 3:
-            printf("\nHas elegido jugar.\n");
-            break;
         default:
-            printf("\nOpcion no valida. Por favor, elige una opcion del 1 al 3.\n");
+            // Opción no válida
+            printf("\nOpcion no valida. Por favor, elige una opcion del 0 al 2\n");
             break;
         }
 
     } while (opcion != 0);
 
-    liberarRegistros(registros);
+    // Liberar memoria antes de salir
+    clear(&registros);
 
     return 0;
 }
 
-
 void historial(struct Registro *registros, int numTiradas)
 {
+    // Mostrar historial de tiradas
     for (int i = 0; i < numTiradas; i++)
     {
-        printf("Tirada %d - N1: %d %d %d\tFecha y hora: %d-%02d-%02d %02d:%02d:%02d\n",
-               i + 1, registros[i].numerosAleatorios[0], registros[i].numerosAleatorios[1], registros[i].numerosAleatorios[2],
+        printf("Tirada %d - N1: %d %d %d\tFecha y hora: %d-%02d-%02d %02d:%02d:%02d\n", i + 1,
+               registros[i].numerosAleatorios[0], registros[i].numerosAleatorios[1], registros[i].numerosAleatorios[2],
                registros[i].year, registros[i].month, registros[i].day,
                registros[i].hour, registros[i].minute, registros[i].second);
     }
 }
 
-
 void tirar(struct Registro **registros, int *numTiradas)
 {
-    
+    // Realizar una nueva tirada y almacenarla en registros
     time_t tiempoActual;
     time(&tiempoActual);
 
-
     struct tm *infoTiempo = localtime(&tiempoActual);
-
 
     (*numTiradas)++;
 
-
-    *registros = realloc(*registros, sizeof(struct Registro) * (*numTiradas));
-
-
-    for (int i = 0; i < 3; i++)
+    // Reasignar memoria para la nueva tirada
+    struct Registro *temp = realloc(*registros, sizeof(struct Registro) * (*numTiradas));
+    if (temp == NULL)
     {
-        (*registros)[*numTiradas - 1].numerosAleatorios[i] = rand() % 101; 
+        // Manejar error si la asignación de memoria falla
+        printf("Error al asignar memoria para la nueva tirada.\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    else
+    {
+        *registros = temp;
     }
 
+    // Generar tres números aleatorios
+    for (int i = 0; i < 3; i++)
+    {
+        (*registros)[*numTiradas - 1].numerosAleatorios[i] = rand() % 101;
+    }
+
+    // Almacenar la fecha y hora actual
     (*registros)[*numTiradas - 1].year = infoTiempo->tm_year + 1900;
     (*registros)[*numTiradas - 1].month = infoTiempo->tm_mon + 1;
     (*registros)[*numTiradas - 1].day = infoTiempo->tm_mday;
     (*registros)[*numTiradas - 1].hour = infoTiempo->tm_hour;
     (*registros)[*numTiradas - 1].minute = infoTiempo->tm_min;
     (*registros)[*numTiradas - 1].second = infoTiempo->tm_sec;
-
-    printf("Tirada realizada y almacenada.\n");
 }
 
-
-void liberarRegistros(struct Registro *registros)
+void clear(struct Registro **registros)
 {
-    free(registros);
-}
-
-
-void imprimirResultado(const char *mensaje)
-{
-    printf("%s\n", mensaje);
-}
-
-
-void imprimirTiempo()
-{
-    time_t t = time(NULL);
-    struct tm *tiempo = localtime(&t);
-
-    int dia = tiempo->tm_mday;
-    int mes = tiempo->tm_mon + 1;
-    int ano = tiempo->tm_year + 1900;
-
-    int hora = tiempo->tm_hour;
-    int minuto = tiempo->tm_min;
-
-    printf("Fecha y hora actual: %02d/%02d/%04d %02d:%02d:\n", dia, mes, ano, hora, minuto);
+    // Liberar la memoria asignada para registros
+    free(*registros);
+    *registros = NULL;
 }
