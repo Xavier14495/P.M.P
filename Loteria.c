@@ -17,10 +17,9 @@ void jugar(struct Registro **registros, int *numTiradas);
 void Pale(struct Registro **registros, int *numTiradas);
 void Tripleta(struct Registro **registros, int *numTiradas);
 void Numero(struct Registro **registros, int *numTiradas);
-void clear(struct Registro **registros);
 void guardarDatos(struct Registro *registros, int numTiradas);
 int cargarDatos(struct Registro **registros);
-
+void clear(struct Registro **registros);
 
 int main()
 {
@@ -134,6 +133,13 @@ void tirar(struct Registro **registros, int *numTiradas)
     (*registros)[*numTiradas - 1].second = infoTiempo->tm_sec;
 }
 
+void clear(struct Registro **registros)
+{
+    // Liberar la memoria asignada para registros
+    free(*registros);
+    *registros = NULL;
+}
+
 void jugar(struct Registro **registros, int *numTiradas)
 {
     int opcionJuego;
@@ -233,12 +239,6 @@ void Numero(struct Registro **registros, int *numTiradas)
     printf("Lo siento, no has ganado con el Numero.\n");
 }
 
-void clear(struct Registro **registros)
-{
-    // Liberar la memoria asignada para registros
-    free(*registros);
-    *registros = NULL;
-}
 // Función para guardar los datos en el disco
 void guardarDatos(struct Registro *registros, int numTiradas)
 {
@@ -262,7 +262,7 @@ int cargarDatos(struct Registro **registros)
     FILE *archivo = fopen("datos.dat", "rb");
     if (archivo == NULL)
     {
-        printf("No se encontró un archivo existente. Se crearan nuevos datos.\n");
+        printf("No se encontro un archivo existente. Se crearan nuevos datos.\n");
         return 0;
     }
 
