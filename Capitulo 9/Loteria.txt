@@ -1,0 +1,26 @@
+Loteria
+
+Debe contener un menu con:
+
+Numeros casuales
+
+Fecha y hora
+
+Grabar historial Numeros
+
+Estructura del menu:
+
+0- Salir
+1- Tirar //3 numeros casuales = grabar//
+2- Imprimir
+
+V2
+{
+  3- Jugar //Numero, pale,tripleta = Tirar = decir que ganaste o perdiste//
+}
+ 
+V3 
+{
+    4- Cuanto va a jugar.
+    5- Cuanto gane.
+}
